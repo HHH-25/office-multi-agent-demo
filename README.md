@@ -1,8 +1,8 @@
 # 办公制度多智能体 Demo
 
-给面试官看的 **LangGraph 多 Agent 练习项目**。场景是企业内部制度问答：先查制度，再写答复，再检查有没有越权承诺。
+LangGraph 多 Agent 小项目。场景是企业内部制度问答：先查制度，再写答复，再检查有没有越权承诺。
 
-> 这是独立练习项目，不是线上产品。本地 `streamlit run app.py` 即可试用。
+本地 `streamlit run app.py` 即可试用。
 
 ## 四个 Agent
 
@@ -27,7 +27,7 @@ supervisor  协调：看进度，决定下一步
 | 撰写 | 按制度写给员工看的答复 | 只消费证据，不自己发明流程 |
 | 复核 | JSON 判定是否通过 | 对应办公场景的边界控制 |
 
-检索没有上向量库，是为了 **clone 就能跑**。正式项目可以把 `src/retriever.py` 换成 Chroma + BGE，图结构不用改。
+检索没有上向量库，是为了 clone 就能跑。正式项目可以把 `src/retriever.py` 换成 Chroma + BGE，图结构不用改。
 
 ## 怎么跑
 
@@ -71,18 +71,11 @@ streamlit run app.py
 
 第 2 题适合看复核：制度写的是超标自理，答复里不应出现「可以报销」。
 
-一次真实运行记录见 [`traces/sample_run.md`](traces/sample_run.md)。
+一次运行记录见 [`traces/sample_run.md`](traces/sample_run.md)。
 
 ## 代码入口
 
 - `src/graph.py`：状态图和四个节点
 - `src/retriever.py`：本地 `knowledge/*.md` 检索
-- `knowledge/`：请假、报销、会议三份练习制度
+- `knowledge/`：请假、报销、会议三份制度
 - `app.py`：Streamlit 页面，展示每个 Agent 的输出
-
-## 面试时可以怎么讲
-
-1. 多 Agent 不是多个模型，而是 **同一张状态图上的分工**：共享 `question / evidence / draft / review`。
-2. 协调节点用模型建议下一步，同时用规则兜底，防止没检索就结束。
-3. 复核失败会让撰写再改一稿；仍不通过就带警告输出，而不是无限循环。
-4. 办公场景宁可「转人工」，也不代替 OA 审批。
