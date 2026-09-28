@@ -29,7 +29,7 @@ def load_documents() -> list[dict[str, str]]:
     return docs
 
 
-def search_knowledge(query: str, top_k: int = 3) -> list[str]:
+def search_knowledge(query: str, top_k: int = 4) -> list[str]:
     """本地关键词检索。练习项目刻意不用向量库，保证零部署可跑。"""
     query_tokens = _tokenize(query)
     scored: list[tuple[float, dict[str, str], str]] = []

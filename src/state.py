@@ -13,6 +13,8 @@ class GraphState(TypedDict, total=False):
     revision_count: int
     next_agent: str
     evidence: list[str]
+    conflicts: list[str]
+    conflicts_checked: bool
     draft: str
     review_notes: str
     approved: bool

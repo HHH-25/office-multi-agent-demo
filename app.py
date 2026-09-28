@@ -21,7 +21,7 @@ EXAMPLES = [
 ]
 
 st.title("办公制度多智能体 Demo")
-st.caption("LangGraph：协调 Agent → 检索 Agent → 撰写 Agent → 复核 Agent")
+st.caption("LangGraph：协调 → 检索 → 冲突检测 → 撰写 → 复核")
 
 with st.sidebar:
     st.subheader("本地知识库")
@@ -30,7 +30,7 @@ with st.sidebar:
     st.divider()
     st.markdown(
         "这是练习项目。检索用关键词，正式办公系统可换成向量库。"
-        "复核 Agent 负责拦住编造制度和代替审批。"
+        "多份制度口径不一致时会先标出冲突，不擅自采信其中一份。"
     )
 
 question = st.selectbox("示例问题", EXAMPLES)
@@ -38,7 +38,7 @@ custom = st.text_input("或自己输入", value="")
 query = custom.strip() or question
 
 if st.button("开始协作", type="primary"):
-    with st.spinner("四个 Agent 正在协作…"):
+    with st.spinner("各节点正在协作…"):
         result = run_question(query)
 
     left, right = st.columns([1.1, 1])
